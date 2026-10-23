@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 부산대학교 직무연수 포털 | PNU HRD</title>
+  
+  <!-- SEO & Favicon 메타 -->
+  <meta name="description" content="2026학년도 부산대학교 교직원 직무역량 강화를 위한 법정의무교육, 직무공통, 예산·회계, 정보화·AI 직무연수 종합 안내">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+  <!-- 한국어 최적화 웹폰트 (Pretendard) -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+  <!-- 스타일시트 -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- PapaParse CSV 파서 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+  <!-- GNB (글로벌 내비게이션 바) -->
+  <header class="gnb">
+    <div class="gnb-container">
+      <a href="index.html" class="gnb-brand">
+        <div class="brand-emblem">PNU</div>
+        <div class="brand-text">
+          <h1>부산대학교 직무연수</h1>
+          <p>PUSAN NATIONAL UNIVERSITY HRD PORTAL</p>
+        </div>
+      </a>
+      <div class="gnb-actions">
+        <div class="live-badge" title="구글 시트와 실시간 연동 중입니다.">
+          <span class="live-dot"></span>
+          <span>실시간 시트 연동</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero 섹션 (비주얼 & 요약 지표) -->
+  <section class="hero">
+    <div class="hero-container">
+      <span class="hero-subtitle-tag">2026 직무역량 고도화 프로그램</span>
+      <h2 class="hero-title">변화하는 대학 혁신을 선도하는<br>부산대학교 교직원 직무연수</h2>
+      <p class="hero-description">
+        법정의무교육부터 최신 생성형 AI 실무, 대학회계, 공문서 기획까지 
+        현업 역량을 극대화하는 2026년도 전체 교육과정을 한눈에 확인하세요.
+      </p>
+
+      <!-- KPI 지표 요약 카드 -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">전체 개설 과정</div>
+          <div class="kpi-value"><span id="kpiTotal">-</span><span class="kpi-unit">개</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">법정 필수 교육</div>
+          <div class="kpi-value"><span id="kpiMandatory">-</span><span class="kpi-unit">개</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">온라인 상시 수강</div>
+          <div class="kpi-value"><span id="kpiOnline">-</span><span class="kpi-unit">개</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">전문 직무 실무과정</div>
+          <div class="kpi-value"><span id="kpiPractical">-</span><span class="kpi-unit">개</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 메인 콘텐츠 영역 -->
+  <main class="main-content">
+    
+    <!-- 검색 및 필터 패널 -->
+    <section class="filter-panel" aria-label="연수 검색 및 필터">
+      
+      <!-- 통합 검색창 -->
+      <div class="search-box-wrapper">
+        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input 
+          type="text" 
+          id="searchInput" 
+          class="search-input" 
+          placeholder="과정명, 담당부서(인재개발원, 정보화본부 등), 핵심내용 키워드로 검색..."
+          autocomplete="off"
+        >
+        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="검색어 지우기">&times;</button>
+      </div>
+
+      <!-- 카테고리 분야 탭 -->
+      <div class="category-tabs-container">
+        <div class="category-tabs" id="categoryTabs" role="tablist">
+          <!-- JS 동적 생성 -->
+        </div>
+      </div>
+
+      <!-- 다차원 세부 필터 & 초기화 -->
+      <div class="filter-sub-row">
+        <div class="filter-groups">
+          <div class="filter-group">
+            <label for="filterStatus" class="filter-label">이수구분</label>
+            <select id="filterStatus" class="chip-select">
+              <option value="ALL">전체 이수구분</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filterMode" class="filter-label">교육방식</label>
+            <select id="filterMode" class="chip-select">
+              <option value="ALL">전체 교육방식</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filterTarget" class="filter-label">수강대상</label>
+            <select id="filterTarget" class="chip-select">
+              <option value="ALL">전체 대상</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="filter-controls">
+          <button type="button" id="resetBtn" class="reset-btn">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+            </svg>
+            필터 초기화
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 결과 카운트 및 정렬 -->
+    <div class="results-header">
+      <div class="results-count" id="resultsCount">
+        검색 결과 <strong>-</strong>개 과정
+      </div>
+      <div>
+        <select id="sortSelect" class="sort-select" aria-label="결과 정렬">
+          <option value="DEFAULT">과정코드 순</option>
+          <option value="NAME_ASC">과정명 가나다순</option>
+          <option value="HOURS_DESC">교육시간 높은순</option>
+          <option value="HOURS_ASC">교육시간 낮은순</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 과정 카드 리스트 그리드 -->
+    <div class="course-grid" id="courseGrid">
+      <!-- 스켈레톤 로딩 / JS 동적 렌더링 -->
+    </div>
+
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">부산대학교 직무연수 종합안내 포털</div>
+      <p class="footer-info">
+        (46241) 부산광역시 금정구 부산대학로63번길 2 (장전동) 부산대학교<br>
+        직무연수 관련 문의: 인재개발원 (051-510-1231) · 정보화본부 (051-510-2001)
+      </p>
+      <p class="footer-copy">
+        © 2026 Pusan National University HRD. All rights reserved. 실시간 구글 스프레드시트 데이터 연동
+      </p>
+    </div>
+  </footer>
+
+  <!-- 모듈 스크립트 -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

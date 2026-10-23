@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>과정 상세 안내 | 2026 부산대학교 직무연수 포털</title>
+  
+  <meta name="description" content="2026학년도 부산대학교 교직원 직무역량 강화 연수 세부 과정 안내 및 신청">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+
+  <!-- 한국어 최적화 웹폰트 (Pretendard) -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+  <!-- 스타일시트 -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- PapaParse CSV 파서 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+  <!-- GNB (글로벌 내비게이션 바) -->
+  <header class="gnb">
+    <div class="gnb-container">
+      <a href="index.html" class="gnb-brand">
+        <div class="brand-emblem">PNU</div>
+        <div class="brand-text">
+          <h1>부산대학교 직무연수</h1>
+          <p>PUSAN NATIONAL UNIVERSITY HRD PORTAL</p>
+        </div>
+      </a>
+      <div class="gnb-actions">
+        <a href="index.html" class="btn-secondary-action" style="padding: 8px 16px; font-size: 13px;">
+          ← 전체 과정 목록
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 상세 페이지 동적 렌더링 컨테이너 -->
+  <div id="detailApp">
+    <!-- 로딩 스켈레톤 기본 표시 -->
+    <div style="max-width: var(--max-width); margin: 30px auto; padding: 0 24px;">
+      <div class="skeleton-line" style="width: 200px; height: 20px; margin-bottom: 24px;"></div>
+      <div class="skeleton-line" style="width: 120px; height: 28px; margin-bottom: 16px;"></div>
+      <div class="skeleton-line" style="width: 60%; height: 38px; margin-bottom: 16px;"></div>
+      <div class="skeleton-line" style="width: 90%; height: 24px; margin-bottom: 32px;"></div>
+      <div class="spec-grid" style="margin-top: 40px;">
+        <div class="skeleton-card" style="height: 100px;"></div>
+        <div class="skeleton-card" style="height: 100px;"></div>
+        <div class="skeleton-card" style="height: 100px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-logo">부산대학교 직무연수 종합안내 포털</div>
+      <p class="footer-info">
+        (46241) 부산광역시 금정구 부산대학로63번길 2 (장전동) 부산대학교<br>
+        직무연수 관련 문의: 인재개발원 (051-510-1231) · 정보화본부 (051-510-2001)
+      </p>
+      <p class="footer-copy">
+        © 2026 Pusan National University HRD. All rights reserved. 실시간 구글 스프레드시트 데이터 연동
+      </p>
+    </div>
+  </footer>
+
+  <!-- 토스트 알림 컨테이너 -->
+  <div id="toastMsg" class="toast-msg" role="status" aria-live="polite"></div>
+
+  <!-- 모듈 스크립트 -->
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/detail.js"></script>
+</body>
+</html>
